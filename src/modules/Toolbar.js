@@ -1,6 +1,7 @@
 import IconAlignLeft from 'quill/assets/icons/align-left.svg';
 import IconAlignCenter from 'quill/assets/icons/align-center.svg';
 import IconAlignRight from 'quill/assets/icons/align-right.svg';
+import IconAlt from '../icon-alt.svg';
 import { BaseModule } from './BaseModule';
 
 const Parchment = window.Quill.imports.parchment;
@@ -46,15 +47,28 @@ export class Toolbar extends BaseModule {
                 },
                 isApplied: () => MarginStyle.value(this.img) == 'auto',
             },
-            {
-                icon: IconAlignRight,
-                apply: () => {
-                    DisplayStyle.add(this.img, 'inline');
-                    FloatStyle.add(this.img, 'right');
-                    MarginStyle.add(this.img, '0 0 1em 1em');
-                },
-                isApplied: () => FloatStyle.value(this.img) == 'right',
-            },
+			{
+				icon: IconAlignRight,
+				apply: () => {
+					DisplayStyle.add(this.img, 'inline');
+					FloatStyle.add(this.img, 'right');
+					MarginStyle.add(this.img, '0 0 1em 1em');
+				},
+				isApplied: () => FloatStyle.value(this.img) == 'right',
+			},
+			{
+				icon: IconAlt,
+				apply: () => {
+					const alt = prompt('Введите ALT атрибут для изображения:', this.img.alt);
+					if (alt === null) {
+						return false;
+					} else {
+						this.img.alt = alt;
+						return true;
+					}
+				},
+				isApplied: () => false,
+			},
         ];
     };
 
@@ -74,7 +88,7 @@ export class Toolbar extends BaseModule {
 					DisplayStyle.remove(this.img);
 				}				else {
 						// otherwise, select button and apply
-					this._selectButton(button);
+					this._selectButton(button, idx);
 					alignment.apply();
 				}
 					// image may change position; redraw drag handles
@@ -87,14 +101,16 @@ export class Toolbar extends BaseModule {
 			Object.assign(button.children[0].style, this.options.toolbarButtonSvgStyles);
 			if (alignment.isApplied()) {
 					// select button if previously applied
-				this._selectButton(button);
+				this._selectButton(button, idx);
 			}
 			this.toolbar.appendChild(button);
 		});
     };
 
-    _selectButton = (button) => {
-		button.style.filter = 'invert(20%)';
+    _selectButton = (button, idx) => {
+    	if (idx && idx !== 3) {
+			button.style.filter = 'invert(20%)';
+		}
     };
 
 }
