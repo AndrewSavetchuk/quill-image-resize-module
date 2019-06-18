@@ -1,13 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="21px" height="14px" viewBox="0 0 21 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
-    <title>text copy</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Dashboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="PlanGrotesquePro-Medium, Plan Grotesque Pro" font-size="17" font-weight="400">
-        <g id="Заболевание" transform="translate(-171.000000, -813.000000)" fill="#76818E">
-            <text id="text-copy">
-                <tspan x="171" y="826">Alt</tspan>
-            </text>
-        </g>
-    </g>
+<svg width="20px" height="13px" viewBox="0 0 20 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+		<g id="Artboard" transform="translate(-329.000000, -334.000000)" fill="#979797" fill-rule="nonzero">
+			<path d="M337.143,346 L336.072,342.787 L331.635,342.787 L330.581,346 L329.204,346 L332.995,334.95 L334.814,334.95 L338.605,346 L337.143,346 Z M333.845,336.106 L332.026,341.631 L335.681,341.631 L333.845,336.106 Z M341.529,334.355 L341.529,346 L340.186,346 L340.186,334.355 L341.529,334.355 Z M345.915,338.945 L345.915,343.654 C345.915,344.827 346.34,345.082 346.918,345.082 C347.377,345.082 347.819,344.742 348.108,344.232 L348.686,345.558 C348.074,345.966 347.36,346.17 346.646,346.17 C345.49,346.17 344.572,345.66 344.572,343.824 L344.572,338.945 L343.331,338.945 L343.331,337.891 L344.589,337.891 L344.589,335.902 L345.915,335.715 L345.915,337.891 L348.278,337.891 L348.278,338.945 L345.915,338.945 Z" id="Alt"></path>
+		</g>
+	</g>
 </svg>
