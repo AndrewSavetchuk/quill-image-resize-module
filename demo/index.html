@@ -3,20 +3,146 @@
 <head>
     <meta charset="utf-8">
     <title>Quill Image Resize Module Demo</title>
-    <script src="https://cdn.quilljs.com/1.2.2/quill.min.js"></script>
+    <!--<script src="https://cdn.quilljs.com/1.2.2/quill.min.js"></script>-->
+    <script src="quill.js"></script>
     <link href="https://cdn.quilljs.com/1.2.2/quill.snow.css" rel="stylesheet">
     <script src="../image-resize.min.js"></script>
+
+	<style>
+		*, *:after, *:before {
+			box-sizing: border-box;
+		}
+		.button-open-image-modal {
+			border: 1px solid rgb(153, 153, 153);
+			height: 24px;
+			color: rgb(105, 105, 105);
+			cursor: pointer;
+			outline: none;
+		}
+		.image-modal {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 999995;
+			background-color: rgba(0,0,0,0.15);
+		}
+		.image-modal__content {
+			width: 360px;
+			border: 1px solid #ccc;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #FFF;
+			z-index: 999996;
+			padding: 22px 30px 30px;
+		}
+		.image-modal__button-close {
+			width: 30px;
+			height: 30px;
+			position: absolute;
+			z-index: 1;
+			top: 18px;
+			right: 18px;
+			background-color: transparent;
+			border: none;
+			cursor: pointer;
+			outline: none;
+		}
+		.image-modal__button-close:hover:before,
+		.image-modal__button-close:hover:after {
+			background-color: #777;
+		}
+		.image-modal__button-close:before,
+		.image-modal__button-close:after {
+			content: '';
+			position: absolute;
+			z-index: 2;
+			background-color: #000;
+			top: 14px;
+			left: 0px;
+		}
+		.image-modal__button-close:before {
+			width: 30px;
+			height: 1px;
+			transform: rotate(135deg);
+		}
+		.image-modal__button-close:after {
+			width: 30px;
+			height: 1px;
+			transform: rotate(-135deg);
+		}
+		.image-modal__form-group {
+			margin-bottom: 24px;
+		}
+		.image-modal__form-group label {
+			margin-bottom: 6px;
+			display: block;
+			font-family: 'Arial', sans-serif;
+			font-size: 12px;
+			text-transform: uppercase;
+			font-weight: bold;
+		}
+		.image-modal__form-group input {
+			width: 100%;
+			height: 36px;
+			outline: none;
+			padding: 0 12px;
+			border: 1px solid #ccc;
+			margin: 0;
+		}
+		.image-modal__form-group textarea {
+			width: 100%;
+			height: 120px;
+			outline: none;
+			padding: 12px 12px;
+			resize: none;
+			border: 1px solid #ccc;
+		}
+		.image-modal__title {
+			font-size: 18px;
+			margin: 0 0 24px;
+			font-family: 'Arial', sans-serif;
+		}
+		.image-modal #js-image-modal-wide-checkbox {
+			display: inline-block;
+			width: auto;
+			height: auto;
+		}
+		.image-modal #js-image-modal-wide-checkbox + label {
+			display: inline-block;
+			vertical-align: middle;
+			margin: 0 0 0 6px;
+			text-transform: unset;
+			font-weight: normal;
+			font-size: 14px;
+		}
+		.image-modal__button-save {
+			width: 100%;
+			height: 36px;
+			border: none;
+			background-color: #007aff;
+			color: #FFF;
+			font-size: 12px;
+			text-transform: uppercase;
+			font-weight: bold;
+			font-family: Arial, sans-serif;
+			cursor: pointer;
+			outline: none;
+		}
+		.image-modal__button-save:hover {
+			background-color: #0068d9;
+		}
+	</style>
 </head>
 
 <body>
-<h1>Quill Image Resize Module Demo</h1>
 <div id="editor" style="max-height:500px;overflow:auto">
-    <p>Click on the Image Below to resize</p>
-    <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSLbS1ANVLdFcAq-Oiwdnl_BHHQKOLSnI36jhpowcYg8bMeo5S"></p>
-    <p>Some initial <strong>bold</strong> text</p>
+    <p><img alt="Изображение транспортного средства" data-description="Роман Мурашко в операционной во время роботической операции. Фото: Стас Алексеев" class="is-wide" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSLbS1ANVLdFcAq-Oiwdnl_BHHQKOLSnI36jhpowcYg8bMeo5S"></p>
+    <p><img alt="WRUUUM WRUUM" data-description="EPILEPTIK" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSLbS1ANVLdFcAq-Oiwdnl_BHHQKOLSnI36jhpowcYg8bMeo5S"></p>
 </div>
-<p>Also see <a href="https://github.com/kensnyder/quill-image-drop-module">quill-image-drop-module</a>,
-    a module that enables copy-paste and drag/drop for Quill.</p>
 <script src="script.js"></script>
 </body>
 

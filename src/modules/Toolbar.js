@@ -56,19 +56,19 @@ export class Toolbar extends BaseModule {
 			// 	},
 			// 	isApplied: () => FloatStyle.value(this.img) == 'right',
 			// },
-			{
-				icon: IconAlt,
-				apply: () => {
-					const alt = prompt('Введите ALT атрибут для изображения:', this.img.alt);
-					if (alt === null) {
-						return false;
-					} else {
-						this.img.alt = alt;
-						return true;
-					}
-				},
-				isApplied: () => false,
-			},
+			// {
+			// 	icon: IconAlt,
+			// 	apply: () => {
+			// 		const alt = prompt('Введите ALT атрибут для изображения:', this.img.alt);
+			// 		if (alt === null) {
+			// 			return false;
+			// 		} else {
+			// 			this.img.alt = alt;
+			// 			return true;
+			// 		}
+			// 	},
+			// 	isApplied: () => false,
+			// },
         ];
     };
 
@@ -105,7 +105,148 @@ export class Toolbar extends BaseModule {
 			}
 			this.toolbar.appendChild(button);
 		});
+		this._addWideCheckbox();
     };
+
+    _addWideCheckbox = () => {
+    	const self = this;
+
+		/**
+		 * Add button to call modal;
+		 */
+		const callModalButton = document.createElement('button');
+		callModalButton.type = 'button';
+		callModalButton.classList.add('button-open-image-modal');
+		callModalButton.textContent = 'Редактировать';
+
+		/**
+		 * Add event listener to open modal;
+		 */
+		callModalButton.addEventListener('click', function() {
+			self._openModal();
+		});
+
+		/**
+		 * Attach button to toolbar;
+		 */
+		this.toolbar.appendChild(callModalButton);
+	};
+
+	/**
+	 * Image edit modal;
+	 */
+	_openModal = () => {
+		const self = this;
+
+    	const modal = document.createElement('div');
+    	modal.classList.add('image-modal');
+
+    	// Content;
+    	const modalContent = document.createElement('div');
+		modalContent.classList.add('image-modal__content');
+
+		// Close button;
+		const modalCloseButton = document.createElement('button');
+		modalCloseButton.type = 'button';
+		modalCloseButton.classList.add('image-modal__button-close');
+		modalContent.appendChild(modalCloseButton);
+
+		// Title
+		const modalTitle = document.createElement('div');
+		modalTitle.classList.add('image-modal__title');
+		modalTitle.textContent = 'Редактировать изображение';
+		modalContent.appendChild(modalTitle);
+
+		// ALT
+		const modalInputAltWrapper = document.createElement('div');
+		modalInputAltWrapper.classList.add('image-modal__form-group');
+		const modalInputAltLabel = document.createElement('label');
+		modalInputAltLabel.textContent = 'ALT текст:';
+		modalInputAltLabel.setAttribute('for', 'js-image-modal-alt-text');
+		const modalInputAlt = document.createElement('input');
+		modalInputAlt.type = 'text';
+		modalInputAlt.value = this.img.alt;
+		modalInputAlt.id = 'js-image-modal-alt-text';
+		modalInputAltWrapper.appendChild(modalInputAltLabel);
+		modalInputAltWrapper.appendChild(modalInputAlt);
+		modalContent.appendChild(modalInputAltWrapper);
+
+		// Description
+		const modalInputDescriptionWrapper = document.createElement('div');
+		modalInputDescriptionWrapper.classList.add('image-modal__form-group');
+		const modalInputDescriptionLabel = document.createElement('label');
+		modalInputDescriptionLabel.textContent = 'Описание изображения:';
+		modalInputDescriptionLabel.setAttribute('for', 'js-image-modal-description');
+		const modalInputDescriptionTextarea = document.createElement('textarea');
+		modalInputDescriptionTextarea.value = this.img.getAttribute('data-description');
+		modalInputDescriptionTextarea.id = 'js-image-modal-description';
+		modalInputDescriptionWrapper.appendChild(modalInputDescriptionLabel);
+		modalInputDescriptionWrapper.appendChild(modalInputDescriptionTextarea);
+		modalContent.appendChild(modalInputDescriptionWrapper);
+
+		// Wide
+		const modalWideCheckboxWrapper = document.createElement('div');
+		modalWideCheckboxWrapper.classList.add('image-modal__form-group');
+		const modalWideCheckboxLabel = document.createElement('label');
+		modalWideCheckboxLabel.textContent = 'Широкоформатное изображения:';
+		const modalWideCheckbox = document.createElement('input');
+		modalWideCheckbox.id = 'js-image-modal-wide-checkbox';
+		modalWideCheckbox.type = 'checkbox';
+		if(this.img.classList.contains('is-wide')) {
+			modalWideCheckbox.checked = true;
+		}
+		const modalWideCheckboxInputLabel = document.createElement('label');
+		modalWideCheckboxInputLabel.setAttribute('for', 'js-image-modal-wide-checkbox');
+		modalWideCheckboxInputLabel.textContent = 'Растянуть по ширине';
+
+		modalWideCheckboxWrapper.appendChild(modalWideCheckboxLabel);
+		modalWideCheckboxWrapper.appendChild(modalWideCheckbox);
+		modalWideCheckboxWrapper.appendChild(modalWideCheckboxInputLabel);
+		modalContent.appendChild(modalWideCheckboxWrapper);
+
+		// Save button
+		const modalButtonSave = document.createElement('button');
+		modalButtonSave.type = 'button';
+		modalButtonSave.textContent = 'Сохранить';
+		modalButtonSave.classList.add('image-modal__button-save');
+		modalContent.appendChild(modalButtonSave);
+
+		/**
+		 * Append modal to body;
+		 */
+		modal.appendChild(modalContent);
+    	document.querySelector('body').appendChild(modal);
+
+		/**
+		 * Close button;
+		 */
+		modalCloseButton.addEventListener('click', function() {
+			document.querySelector('body').removeChild(modal);
+		});
+
+		/**
+		 * Save modal;
+		 */
+		modalButtonSave.addEventListener('click', function() {
+			self._saveModalChanges(
+				modalInputAlt.value,
+				modalInputDescriptionTextarea.value,
+				modalWideCheckbox.checked,
+				modal
+			);
+		});
+	};
+
+	_saveModalChanges = (altText, descriptionText, isWide, modal) => {
+		this.img.alt = altText;
+		this.img.setAttribute('data-description', descriptionText);
+		if (isWide) {
+			this.img.classList.add('is-wide');
+		} else {
+			this.img.classList.remove('is-wide');
+		}
+		document.querySelector('body').removeChild(modal);
+	};
 
     _selectButton = (button, idx) => {
     	if (idx && idx !== 3) {
