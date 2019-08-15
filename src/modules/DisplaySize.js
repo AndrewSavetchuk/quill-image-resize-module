@@ -10,9 +10,27 @@ export class DisplaySize extends BaseModule {
 
         // Attach it
         this.overlay.appendChild(this.display);
-    };
 
-    onDestroy = () => {};
+		/**
+		 * Input with;
+		 */
+		const self = this;
+		this.inputWidth = document.createElement('input');
+		this.inputWidth.type = 'number';
+		this.inputWidth.placeholder = 'Ширина';
+		this.inputWidth.value = this.img.width;
+		this.inputWidth.classList.add('image-modal__input-width');
+		this.inputWidth.addEventListener('keyup', function(e) {
+			if (e.key === 'Enter') {
+				e.preventDefault();
+				self.img.width = e.target.value;
+				window._hideOverlay();
+			}
+		});
+		this.overlay.appendChild(this.inputWidth);
+	};
+
+	onDestroy = () => {};
 
     onUpdate = () => {
         if (!this.display || !this.img) {

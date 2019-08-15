@@ -60,6 +60,8 @@ export default class ImageResize {
         );
 
         this.onUpdate();
+
+		window._hideOverlay = this.hide;
     };
 
     onUpdate = () => {
@@ -119,7 +121,7 @@ export default class ImageResize {
         this.setUserSelect('none');
 
         // listen for the image being deleted or moved
-        document.addEventListener('keyup', this.checkImage, true);
+        // document.addEventListener('keyup', this.checkImage, true);
         this.quill.root.addEventListener('input', this.checkImage, true);
 
         // Create and add the overlay
