@@ -22,6 +22,7 @@ export class DisplaySize extends BaseModule {
 		this.inputWidth.classList.add('image-modal__input-width');
 		this.inputWidth.addEventListener('keyup', function(e) {
 			if (e.key === 'Enter') {
+				e.preventDefault();
 				e.stopPropagation();
 				self.img.width = e.target.value;
 				window._hideOverlay();
