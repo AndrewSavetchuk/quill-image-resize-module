@@ -21,6 +21,7 @@ export class DisplaySize extends BaseModule {
 		this.inputWidth.value = this.img.width;
 		this.inputWidth.classList.add('image-modal__input-width');
 		this.inputWidth.addEventListener('keydown', function(e) {
+			console.log('Key pressed', e.key);
 			if (e.key === 'Enter') {
 				e.preventDefault();
 				e.stopPropagation();
