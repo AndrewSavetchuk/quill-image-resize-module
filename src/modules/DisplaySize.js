@@ -20,7 +20,7 @@ export class DisplaySize extends BaseModule {
 		this.inputWidth.placeholder = 'Ширина';
 		this.inputWidth.value = this.img.width;
 		this.inputWidth.classList.add('image-modal__input-width');
-		this.inputWidth.addEventListener('keyup', function(e) {
+		this.inputWidth.addEventListener('keydown', function(e) {
 			if (e.key === 'Enter') {
 				e.preventDefault();
 				e.stopPropagation();
